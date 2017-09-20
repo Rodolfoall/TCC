@@ -76,19 +76,7 @@ public class TelaCadastro extends AppCompatActivity {
 
 
     }
-    public void clicaLogin(View V) {
-        mAutch.signInWithEmailAndPassword(edtEmail.getText().toString(), edtSenha.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.d("log", "Falha na autenticação");
-                        }
-                    }
-                });
 
-
-    }
 
     public void criarUsuario(View v){
 
@@ -107,10 +95,14 @@ public class TelaCadastro extends AppCompatActivity {
                             reference.child("Nome").setValue(edtNome.getText().toString());
                             reference.child("UID").setValue(FirebaseAuth.getInstance().getCurrentUser()
                                     .getUid());
-                            Intent intent = new Intent(TelaCadastro.this,TelaApp.class);
-                            startActivity(intent);
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "Cadastro Realizado com Sucesso",Toast.LENGTH_SHORT);
+                            toast.show();
 
                         }else{
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "Falha no Cadastro",Toast.LENGTH_SHORT);
+                            toast.show();
 
 
 

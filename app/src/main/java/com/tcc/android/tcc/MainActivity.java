@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private EditText edtEmail,edtSenha,nome;
+    private EditText edtEmail,edtSenha;
     private Button btnEntrar,btnCadastrar;
 
     private FirebaseAuth mAutch;
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         edtEmail = (EditText)findViewById(R.id.edtEmail);
         edtSenha = (EditText)findViewById(R.id.edtSenha);
-        nome = (EditText)findViewById(R.id.edtNome);
 
         btnEntrar = (Button)findViewById(R.id.btnEntrar);
 
@@ -72,6 +71,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+
+
+    }
+
+    public void clicaLogin(View V) {
+        mAutch.signInWithEmailAndPassword(edtEmail.getText().toString(), edtSenha.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("log", "Falha na autenticação");
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "Flaha no Login",Toast.LENGTH_SHORT);
+                            toast.show();
+
+                        }else{
+                            Intent intent = new Intent(MainActivity.this,TelaApp.class);
+                            startActivity(intent);
+
+                        }
+                    }
+                });
 
 
     }
